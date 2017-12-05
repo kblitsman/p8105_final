@@ -21,7 +21,9 @@ library(haven)
 
 ```{r import}
 saes = read_sas("./state_saes_final.sas7bdat") %>%
-  clean_names()
+  clean_names() %>% 
+  filter(pyear > 5) %>% 
+  select(outname, pyearnm, area, stname, pyear, agegrp, est_total, nsel, ncomp, pop)
 ```
 
 ## Including Plots
