@@ -22,16 +22,19 @@ library(haven)
 ```{r import}
 saes = read_sas("./state_saes_final.sas7bdat") %>%
   clean_names() %>% 
-  filter(pyear > 5) %>% 
+  filter(pyear > 4 & pyear != 12 & area == 2) %>% 
   select(outname, pyearnm, area, stname, pyear, agegrp, est_total, nsel, ncomp, pop)
 ```
 
 ## Including Plots
 
-You can also embed plots, for example:
+```{r plots, echo=FALSE}
+saes %>% 
+    filter(outname == "nonmedical use of pain relievers in the past year" & agegrp == 0 & stname == "Colorado") %>% 
+    ggplot(aes(x = pyearnm, y = est_total)) +
+    geom_point() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
