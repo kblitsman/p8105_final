@@ -16,6 +16,7 @@ library(ggplot2)
 library(haven)
 library(janitor)
 library(shiny)
+library(viridis)
 
 saes = read_sas("./state_saes_final.sas7bdat") %>%
   clean_names() %>% 
@@ -65,19 +66,16 @@ renderPrint({
 Row
 -----------------------------------------------------------------------
 
-### Chart A
+### Time-series graph
 
 ```{r}
 renderPlotly({
   saes %>% 
     filter(outname == input$outcome_choice,
-           agegrp == input$agegroup,
+           agegrp == input$age_group,
            stname == input$state_choice) %>% 
     plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "markers",
-          alpha = 0.5)
+          alpha = 0.5, color = viridis)
 })
 ```
-
-Row {.tabset .tabset-fade}
------------------------------------------------------------------------
 
