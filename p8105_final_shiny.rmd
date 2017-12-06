@@ -1,5 +1,6 @@
 ---
-title: "Final Project" 
+title: "Investigating the Effect of Marijuana Legalization on Alternate Substance Use
+" 
 output: 
   flexdashboard::flex_dashboard:
     orientation: row
@@ -7,6 +8,8 @@ runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
+
+# Loading packages 
 library(flexdashboard)
 library(tidyverse)
 library(plotly)
@@ -18,6 +21,7 @@ library(janitor)
 library(shiny)
 library(viridis)
 
+# Bringing in the data and variables we need, defining our age groups and outcome variables.   
 saes = read_sas("./state_saes_final.sas7bdat") %>%
   clean_names() %>% 
   filter(pyear > 4 & pyear != 12 & area == 2) %>% 
@@ -42,21 +46,21 @@ Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r widgets, echo=FALSE}
-# selectInput widget: State
+# selectInput widget: Initial state
 states = saes %>% distinct(stname) %>% pull()
 selectInput("first_state", label = h3("Select state"),
             choices = states, selected = "Colorado")
 
-# selectInput widget: State 2
+# selectInput widget: Comaprison state
 selectInput("second_state", label = h3("Select comparison state"),
             choices = states, selected = "Washington")
 
-# selectInput widget: outcome
+# selectInput widget: Outcome variable 
 outcomes = saes %>% distinct(outname) %>% pull()
 selectInput("outcome_choice", label = h3("Select outcome"),
             choices = outcomes, selected = "marijuana use in the past month")
 
-# radioButtons widget: age group
+# radioButtons widget: Age group
 age_group = saes %>% distinct(agegrp) %>% pull()
 radioButtons("age_group", label = h3("Choose age group"),
     choices = age_group, 
@@ -71,6 +75,8 @@ Row {.tabset .tabset-fade}
 ### Time-series graph
 
 ```{r create_timegraph}
+# By creating a time-series graph for a selected state, a user will be able to visualize the overall trend for a specific substance across the ten year time period. Users can view this across various age groups or with the entire population. 
+
 saes$hover <- with(saes, paste(pyearnm, '<br>', "Total count (Thousands):", est_total))
 
 renderPlotly({
@@ -95,6 +101,7 @@ renderPlotly({
 ### Comparison Graph
 
 ```{r create_compgraph}
+# The comparison will allow a user to compare the overall numbers of users for a specific substance by year and also to view overall trends across the time period. Users can view this across various age groups or with the entire population.  
 
 renderPlotly({
 p = saes %>%
@@ -118,7 +125,7 @@ ggplotly(p, tooltip = c('fill', 'x', 'y'))
 ### Scatter Graph
 
 ```{r create_scatter}
-
+# 
 renderPlotly({
 saes %>%
   filter(agegrp == input$age_group, outname == input$outcome_choice) %>%
@@ -131,4 +138,6 @@ saes %>%
 )
 })
 ```
+
+
 
