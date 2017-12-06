@@ -46,26 +46,16 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
 states = saes %>% distinct(stname) %>% pull()
 selectInput("state_choice", label = h3("Select state"),
             choices = states, selected = "Colorado")
-renderPrint({ 
-  input$state_choice
-})
 
 # selectInput widget: outcome
 outcomes = saes %>% distinct(outname) %>% pull()
 selectInput("outcome_choice", label = h3("Select outcome"),
             choices = outcomes, selected = "marijuana use in the past year")
-renderPrint({ 
-  input$outcome_choice
-})
-
 # radioButtons widget: age group
 age_group = saes %>% distinct(agegrp) %>% pull()
 radioButtons("age_group", label = h3("Choose age group"),
     choices = age_group, 
     selected = "18 or older")
-renderPrint({ 
-  input$age_group
-})
 
 Renderplotly({
   saes %>% 

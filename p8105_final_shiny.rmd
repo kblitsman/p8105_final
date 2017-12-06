@@ -22,12 +22,20 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
   clean_names() %>% 
   filter(pyear > 4 & pyear != 12 & area == 2) %>% 
   select(outname, pyearnm, area, stname, pyear, agegrp, est_total, nsel, ncomp, pop) %>% 
-  mutate(agegrp = ifelse(agegrp == 0, "12 or older",
+  mutate(agegrp = ifelse(agegrp == 0, "All",
                          ifelse(agegrp == 1, "12 to 17",
                          ifelse(agegrp == 2, "18 to 25",
-                         ifelse(agegrp == 3, "18 or older",
-                         ifelse(agegrp == 4, "26 or older",
-                         ifelse(agegrp == 5, "12 to 20", NA)))))))
+                         ifelse(agegrp == 4, "26 or older", NA))))) %>% 
+  filter(!is.na(agegrp),
+         outname %in% c("alcohol use in the past month", 
+                        "binge alcohol use in the past month",
+                      "illicit drug use other than marijuana in the past month",
+                      "cigarette use in the past month",
+                      "tobacco use in the past month",
+                      "marijuana use in the past month"
+                      ))
+saes$pyearnm = as.factor(saes$pyearnm)
+levels(saes$pyearnm) = gsub("-", "\n", levels(saes$pyearnm))
 ```
 
 Column {.sidebar}
@@ -36,34 +44,28 @@ Column {.sidebar}
 ```{r widgets, echo=FALSE}
 # selectInput widget: State
 states = saes %>% distinct(stname) %>% pull()
-selectInput("state_choice", label = h3("Select state"),
+selectInput("first_state", label = h3("Select state"),
             choices = states, selected = "Colorado")
-renderPrint({ 
-  input$state_choice
-})
+
+# selectInput widget: State 2
+selectInput("second_state", label = h3("Select comparison state"),
+            choices = states, selected = "Washington")
 
 # selectInput widget: outcome
 outcomes = saes %>% distinct(outname) %>% pull()
 selectInput("outcome_choice", label = h3("Select outcome"),
-            choices = outcomes, selected = "marijuana use in the past year")
-renderPrint({ 
-  input$outcome_choice
-})
+            choices = outcomes, selected = "marijuana use in the past month")
 
 # radioButtons widget: age group
 age_group = saes %>% distinct(agegrp) %>% pull()
 radioButtons("age_group", label = h3("Choose age group"),
     choices = age_group, 
-    selected = "18 or older")
-renderPrint({ 
-  input$age_group
-})
+    selected = "All")
 
 
 ```
 
-
-Row
+Row {.tabset .tabset-fade}
 -----------------------------------------------------------------------
 
 ### Time-series graph
@@ -75,15 +77,40 @@ renderPlotly({
   saes %>% 
     filter(outname == input$outcome_choice,
            agegrp == input$age_group,
-           stname == input$state_choice) %>% 
+           stname == input$first_state) %>% 
     plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "markers", hoverinfo = 'text', text = ~paste(pyearnm, '<br>', "Total count:", est_total),
           marker = list(size = 10,
                        color = 'rgba(255, 182, 193, .9)',
                        line = list(color = 'rgba(152, 0, 0, .8)',
                                    width = 2))) %>%
   layout(title = input$outcomechoice,
-         yaxis = list(zeroline = TRUE, title = "Count"),
-         xaxis = list(zeroline =TRUE, title = "Year Range"))
+         yaxis = list(zeroline = TRUE, title = "Estimated average number of persons (in thousands)"),
+         xaxis = list(zeroline = TRUE, title = "Year Range"),
+         margin = list(b = 100), xaxis = list(tickprefix = " "))
 })
 ```
+
+-----------------------------------------------------------------------
+
+### Comparison Graph
+
+```{r}
+
+renderPlotly({
+p = saes %>%
+  filter(stname %in% c(input$first_state, input$second_state), agegrp == input$age_group, outname == input$outcome_choice) %>%
+  ggplot(aes(x = pyearnm, fill = stname)) +
+  geom_bar(aes(group = stname, y = est_total*1000/pop*100), position = position_dodge(width = 0.6), stat = "identity") + labs(
+    title = "Comparing Monthly Substance Users in States",
+    x = "Years",
+    y = "Proportion Users to Population (%)",
+    fill = "States Compared:"
+  ) + 
+  theme_bw() +
+  theme(axis.title.x = element_blank());
+
+ggplotly(p, tooltip = c('fill', 'x', 'y'))
+})
+```
+
 
