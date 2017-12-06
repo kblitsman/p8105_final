@@ -69,13 +69,21 @@ Row
 ### Time-series graph
 
 ```{r}
+saes$hover <- with(saes, paste(pyearnm, '<br>', "Total count (Thousands):", est_total))
+
 renderPlotly({
   saes %>% 
     filter(outname == input$outcome_choice,
            agegrp == input$age_group,
            stname == input$state_choice) %>% 
-    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "markers",
-          alpha = 0.5, color = viridis)
+    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "markers", hoverinfo = 'text', text = ~paste(pyearnm, '<br>', "Total count:", est_total),
+          marker = list(size = 10,
+                       color = 'rgba(255, 182, 193, .9)',
+                       line = list(color = 'rgba(152, 0, 0, .8)',
+                                   width = 2))) %>%
+  layout(title = input$outcomechoice,
+         yaxis = list(zeroline = TRUE, title = "Count"),
+         xaxis = list(zeroline =TRUE, title = "Year Range"))
 })
 ```
 
