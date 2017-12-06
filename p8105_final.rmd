@@ -15,6 +15,7 @@ library(broom)
 library(viridis)
 library(tidytext)
 library(haven)
+library(plotly)
 ```
 
 # Importing Data
@@ -31,10 +32,43 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
 ```{r plots, echo=FALSE}
 saes %>% 
     filter(outname == "nonmedical use of pain relievers in the past year" & agegrp == 0 & stname == "Colorado") %>% 
+    mutate(pyearnm = ifelse(pyearnm == "2010-2011 (published)", "2010-2011", pyearnm)) %>%
     ggplot(aes(x = pyearnm, y = est_total)) +
     geom_point() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r Map}
+library(plotly)
+df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv")
+df$hover <- with(df, paste(state, '<br>', "Beef", beef, "Dairy", dairy, "<br>",
+                           "Fruits", total.fruits, "Veggies", total.veggies,
+                           "<br>", "Wheat", wheat, "Corn", corn))
+# give state boundaries a white border
+l <- list(color = toRGB("white"), width = 2)
+# specify some map projection/options
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white')
+)
+
+p <- plot_geo(df, locationmode = 'USA-states') %>%
+  add_trace(
+    z = ~total.exports, text = ~hover, locations = ~code,
+    color = ~total.exports, colors = 'Purples'
+  ) %>%
+  colorbar(title = "Millions USD") %>%
+  layout(
+    title = '2011 US Agriculture Exports by State<br>(Hover for breakdown)',
+    geo = g
+  )
+p
+# Create a shareable link to your chart
+# Set up API credentials: https://plot.ly/r/getting-started
+chart_link = plotly_POST(p, filename="choropleth/ag")
+chart_link
+```
