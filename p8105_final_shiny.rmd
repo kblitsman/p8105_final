@@ -33,7 +33,7 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
                       "cigarette use in the past month",
                       "tobacco use in the past month",
                       "marijuana use in the past month"
-                      ))
+                      )) 
 saes$pyearnm = as.factor(saes$pyearnm)
 levels(saes$pyearnm) = gsub("-", "\n", levels(saes$pyearnm))
 ```
@@ -113,4 +113,22 @@ ggplotly(p, tooltip = c('fill', 'x', 'y'))
 })
 ```
 
+-----------------------------------------------------------------------
+
+### Scatter Graph
+
+```{r create_scatter}
+
+renderPlotly({
+saes %>%
+  filter(agegrp == input$age_group, outname == input$outcome_choice) %>%
+  plot_ly(
+  x = ~pop, y = ~est_total*1000,
+  # Hover text:
+  hoverinfo = 'text',
+  text = ~paste("State:", stname, '<br>Total Users:', est_total*1000, '<br>Population:', pop),
+  color = ~est_total, size = ~est_total
+)
+})
+```
 
