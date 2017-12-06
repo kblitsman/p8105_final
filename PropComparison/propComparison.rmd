@@ -42,7 +42,7 @@ Column {.sidebar}
 ```{r widgets, echo=FALSE}
 # selectInput widget: State 1
 states = saes %>% distinct(stname) %>% pull()
-selectInput("initial_state", label = h3("Select first state"),
+selectInput("first_state", label = h3("Select initial state"),
             choices = states, selected = "Colorado")
 
 
