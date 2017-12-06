@@ -78,7 +78,7 @@ renderPlotly({
     filter(outname == input$outcome_choice,
            agegrp == input$age_group,
            stname == input$first_state) %>% 
-    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "markers", hoverinfo = 'text', text = ~paste(pyearnm, '<br>', "Total count:", est_total),
+    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "lines+markers", hoverinfo = 'text', text = ~paste(pyearnm, '<br>', "Total count:", est_total),
           marker = list(size = 10,
                        color = 'rgba(255, 182, 193, .9)',
                        line = list(color = 'rgba(152, 0, 0, .8)',
@@ -101,7 +101,7 @@ p = saes %>%
   filter(stname %in% c(input$first_state, input$second_state), agegrp == input$age_group, outname == input$outcome_choice) %>%
   ggplot(aes(x = pyearnm, fill = stname)) +
   geom_bar(aes(group = stname, y = est_total*1000/pop*100), position = position_dodge(width = 0.6), stat = "identity") + labs(
-    title = "Comparing Monthly Substance Users in States",
+    title = "Comparing Monthly Substance Users Between States",
     x = "Years",
     y = "Proportion Users to Population (%)",
     fill = "States Compared:"
