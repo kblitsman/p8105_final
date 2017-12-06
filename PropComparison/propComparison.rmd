@@ -33,7 +33,7 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
                       "marijuana use in the past month"
                       ))
 saes$pyearnm = as.factor(saes$pyearnm)
-levels(saes$pyearnm) = gsub("-", " -\n", levels(saes$pyearnm))
+levels(saes$pyearnm) = gsub("-", "\n", levels(saes$pyearnm))
 ```
 
 Column {.sidebar}
@@ -42,35 +42,27 @@ Column {.sidebar}
 ```{r widgets, echo=FALSE}
 # selectInput widget: State 1
 states = saes %>% distinct(stname) %>% pull()
-selectInput("first_state", label = h3("Select first state"),
+selectInput("initial_state", label = h3("Select first state"),
             choices = states, selected = "Colorado")
-renderPrint({ 
-  input$first_state
-})
+
 
 # selectInput widget: State 2
 selectInput("second_state", label = h3("Select comparison state"),
             choices = states, selected = "Washington")
-renderPrint({ 
-  input$second_state
-})
+
 
 # selectInput widget: outcome
 outcomes = saes %>% distinct(outname) %>% pull()
 selectInput("outcome_choice", label = h3("Select outcome"),
             choices = outcomes, selected = "marijuana use in the past month")
-renderPrint({ 
-  input$outcome_choice
-})
+
 
 # radioButtons widget: age group
 age_group = saes %>% distinct(agegrp) %>% pull()
 radioButtons("age_group", label = h3("Choose age group"),
     choices = age_group, 
     selected = "All")
-renderPrint({ 
-  input$age_group
-})
+
 
 
 ```
@@ -88,7 +80,7 @@ p = saes %>%
   filter(stname %in% c(input$first_state, input$second_state), agegrp == input$age_group, outname == input$outcome_choice) %>%
   ggplot(aes(x = pyearnm, fill = stname)) +
   geom_bar(aes(group = stname, y = est_total*1000/pop*100), position = position_dodge(width=0.6), stat="identity") + labs(
-    title = "Comparing Monthly Drug Users in States",
+    title = "Comparing Monthly Substance Users in States",
     x = "Years",
     y = "Proportion Users to Population (%)",
     fill = "States Compared:"
