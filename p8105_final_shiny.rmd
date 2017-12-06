@@ -8,6 +8,8 @@ runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
+# The premise of this project is to look at how the legalization of marijuana has affected the use of other substances, such as illicit drugs, alcohol and cigarettes. The dataset being utilized comes from The National Survey on Drug Use and Health (NSDUH), which measures the prevalence and correlates of drug use in the United States both quarterly and annually. Furthermore, to investigate potential differences in states that have legalized marijuana from the period prior to legalization and after, through time-series graphs. Another important comparison to make would be between states that have legalized marijuana and those that haven't to better understand any potential changes in substance use due to legalization.
+
 
 # Loading packages 
 library(flexdashboard)
