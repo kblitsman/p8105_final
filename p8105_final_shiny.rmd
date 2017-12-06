@@ -62,6 +62,10 @@ radioButtons("age_group", label = h3("Choose age group"),
     choices = age_group, 
     selected = "All")
 
+# selectInput widet: year
+years = saes %>% distinct(pyearnm) %>% pull()
+selectInput("year_range", label = h3("Choose year"), 
+            choices = years, selected = "2010")
 
 ```
 
