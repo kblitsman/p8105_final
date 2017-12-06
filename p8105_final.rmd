@@ -14,13 +14,10 @@ library(stringr)
 library(broom)
 library(tidytext)
 library(haven)
-<<<<<<< HEAD
 library(shiny)
 library(plotly)
 library(viridis)
-=======
 library(plotly)
->>>>>>> c9cd0cc1384177ad5f7bf21dba07e3b0ad9f8c1a
 ```
 
 # Importing Data
@@ -41,7 +38,6 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
 ## Including Plots
 
 ```{r plots, echo=FALSE}
-<<<<<<< HEAD
 # selectInput widget: State
 states = saes %>% distinct(stname) %>% pull()
 selectInput("state_choice", label = h3("Select state"),
@@ -66,13 +62,11 @@ Renderplotly({
           alpha = 0.5)
 })
 
-ggplot(aes(x = pyearnm, y = est_total)) +
-=======
+
 saes %>% 
     filter(outname == "nonmedical use of pain relievers in the past year" & agegrp == 0 & stname == "Colorado") %>% 
     mutate(pyearnm = ifelse(pyearnm == "2010-2011 (published)", "2010-2011", pyearnm)) %>%
     ggplot(aes(x = pyearnm, y = est_total)) +
->>>>>>> c9cd0cc1384177ad5f7bf21dba07e3b0ad9f8c1a
     geom_point() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
@@ -107,6 +101,6 @@ p <- plot_geo(df, locationmode = 'USA-states') %>%
 p
 # Create a shareable link to your chart
 # Set up API credentials: https://plot.ly/r/getting-started
-chart_link = plotly_POST(p, filename="choropleth/ag")
+chart_link = plotly_POST(p, filename = "choropleth/ag")
 chart_link
 ```
