@@ -1,27 +1,22 @@
 ---
-title: "Final"
-output: html_document
+title: "Final Project" 
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: row
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(flexdashboard)
 library(tidyverse)
-library(rvest)
-library(httr)
-library(janitor)
-library(forcats)
-library(stringr)
-library(broom)
-library(tidytext)
-library(haven)
-library(shiny)
 library(plotly)
-library(viridis)
-```
+library(readr)
+library(stringr)
+library(ggplot2)
+library(haven)
+library(janitor)
+library(shiny)
 
-# Importing Data
-
-```{r import}
 saes = read_sas("./state_saes_final.sas7bdat") %>%
   clean_names() %>% 
   filter(pyear > 4 & pyear != 12 & area == 2) %>% 
@@ -34,9 +29,10 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
                          ifelse(agegrp == 5, "12 to 20", NA)))))))
 ```
 
-## Including Plots
+Column {.sidebar}
+-----------------------------------------------------------------------
 
-```{r plots, echo=FALSE}
+```{r, echo=FALSE}
 # selectInput widget: State
 states = saes %>% distinct(stname) %>% pull()
 selectInput("state_choice", label = h3("Select state"),
@@ -62,18 +58,26 @@ renderPrint({
   input$age_group
 })
 
-Renderplotly({
+
+```
+
+
+Row
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+renderPlotly({
   saes %>% 
-    filter(outname == "marijuana use in the past year",
-           agegrp == "18 or older",
-           stname == "Colorado") %>% 
+    filter(outname == input$outcome_choice,
+           agegrp == input$agegroup,
+           stname == input$state_choice) %>% 
     plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "markers",
           alpha = 0.5)
 })
-
-ggplot(aes(x = pyearnm, y = est_total)) +
-    geom_point() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Row {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
