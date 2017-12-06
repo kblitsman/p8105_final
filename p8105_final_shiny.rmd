@@ -70,7 +70,7 @@ Row {.tabset .tabset-fade}
 
 ### Time-series graph
 
-```{r}
+```{r create_timegraph}
 saes$hover <- with(saes, paste(pyearnm, '<br>', "Total count (Thousands):", est_total))
 
 renderPlotly({
@@ -94,7 +94,7 @@ renderPlotly({
 
 ### Comparison Graph
 
-```{r}
+```{r create_compgraph}
 
 renderPlotly({
 p = saes %>%
