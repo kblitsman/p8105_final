@@ -33,7 +33,7 @@ saes = read_sas("./state_saes_final.sas7bdat") %>%
 Column {.sidebar}
 -----------------------------------------------------------------------
 
-```{r, echo=FALSE}
+```{r widgets, echo=FALSE}
 # selectInput widget: State
 states = saes %>% distinct(stname) %>% pull()
 selectInput("state_choice", label = h3("Select state"),
