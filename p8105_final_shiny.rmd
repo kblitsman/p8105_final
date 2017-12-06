@@ -79,7 +79,8 @@ Row {.tabset .tabset-fade}
 ### Time-series graph
 
 ```{r create_timegraph}
-# By creating a time-series graph for a selected state, a user will be able to visualize the overall trend for a specific substance across the ten year time period. Users can view this across various age groups or with the entire population. 
+# By creating a time-series graph for a selected state, a user will be able to visualize the overall trend for a specific substance across the ten year time period. Users can view this across various age groups or for all age groups combined to view potential differences by age and by state.
+
 
 saes$hover <- with(saes, paste(pyearnm, '<br>', "Total count (Thousands):", est_total))
 
@@ -105,7 +106,8 @@ renderPlotly({
 ### Comparison Graph
 
 ```{r create_compgraph}
-# The comparison will allow a user to compare the overall numbers of users for a specific substance by year and also to view overall trends across the time period. Users can view this across various age groups or with the entire population.  
+# The comparison graph will allow a user to compare the overall numbers of users for a specific substance by year and also to view overall trends across the time period. Users can view this across various age groups or for all age groups combined to view potential differences by age and by state. The graph will also allow users to look at one state solely without a comparison.   
+
 
 renderPlotly({
 p = saes %>%
@@ -129,7 +131,8 @@ ggplotly(p, tooltip = c('fill', 'x', 'y'))
 ### Scatter Graph
 
 ```{r create_scatter}
-# 
+# This scatter graph presents a visual interpretation for all fifty states and the estimated total population that uses a specific substance relative to the year selected. States with greater populations will be located farther on the right side of the graph and substances with greater estimated users will be located higher on the graph. This should provide users with a method of comparing states to one another relative to their population size.   
+
 renderPlotly({
 saes %>%
   filter(agegrp == input$age_group, outname == input$outcome_choice) %>%
