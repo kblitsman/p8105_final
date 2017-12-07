@@ -22,6 +22,11 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<link href="site_libs/vis-4.16.1/vis.min.css" rel="stylesheet" />
+<script src="site_libs/vis-4.16.1/vis.min.js"></script>
+<link href="site_libs/timeline-0.4/timevis.css" rel="stylesheet" />
+<script src="site_libs/timevis-binding-0.4/timevis.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -235,12 +240,22 @@ $(document).ready(function () {
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
-<p>To examine marijuana and other substance use, we used the <a href="https://nsduhweb.rti.org/respweb/homepage.cfm">National Survey on Drug Use and Health (NSDUH)</a>. The NSDUH contains data on various tobacco, alcohol, and other substance use while also containing some basic demographic information such as age and state of residence. The <a href="https://datafiles.samhsa.gov/study/national-survey-drug-use-and-health-nsduh-2015-nid16893">dataset</a> that was utilized contained data from 1999 to 2015, which unfortunately does not provide a large amount of data for examining Colorado’s 2014 legalization of marijuana.</p>
+<p>To examine marijuana and other substance use, we used the [National Survey on Drug Use and Health (NSDUH)](<a href="https://nsduhweb.rti.org/respweb/homepage.cfm" class="uri">https://nsduhweb.rti.org/respweb/homepage.cfm</a>. The NSDUH contains data on various tobacco, alcohol, and other substance use while also containing some basic demographic information such as age and state of residence. The <a href="https://datafiles.samhsa.gov/study/national-survey-drug-use-and-health-nsduh-2015-nid16893">dataset</a> that was utilized contained data from 1999 to 2015, which unfortunately does not provide a large amount of data for examining Colorado’s 2014 legalization of marijuana.</p>
 </div>
 <div id="analysis" class="section level3">
 <h3>Analysis</h3>
 <p>We initially decided to create an interactive shiny graph to allow for examination of state counts of substance use over the past years. By creating a time-series graph for a selected state, a user will be able to visualize the overall trend for a specific substance across the ten year time period. Users can view this across various age groups or for all age groups combined to view potential differences by age and by state. This provided us with the opportunity to assess the estimated count of substance users in states with various policies regarding marijuana and other substances, which can help to inform us as to the true effects of marijuana legalization.</p>
 <p>We then decided that we would like to implement an easy way to compare the amount of substance users within states to other states. In order to do this, we created a proportion measure for users to total population to ensure an appropriate comparison. Then, we created a clustered bar chart displaying the relationship between year and proportion of substance user for two selected states. This allows quick between state comparisons, which can help us to understand how marijuana legalization has effected other substance use.</p>
+</div>
+<div id="timeline-of-when-recreational-marijuana-was-legalized-by-vote" class="section level3">
+<h3>Timeline of when recreational marijuana was legalized by vote</h3>
+<div id="htmlwidget-97ac10892c8188aacffd" class="timevis html-widget" style="width:672px;height:480px;">
+<div class="btn-group zoom-menu">
+<button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
+<button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
+</div>
+</div>
+<script type="application/json" data-for="htmlwidget-97ac10892c8188aacffd">{"x":{"items":[{"id":"1","content":"Colorado","start":"2012-11-06"},{"id":"2","content":"Washington","start":"2012-11-06"},{"id":"3","content":"Oregon","start":"2014-11-04"},{"id":"4","content":"Nevada","start":"2016-11-08"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script>
 </div>
 
 

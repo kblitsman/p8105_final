@@ -5,10 +5,28 @@ title: "Investigating the Effect of Marijuana Legalization Use"
 The premise of this project is to look at how the legalization of marijuana has affected the use of other substances, such as illicit drugs, alcohol and cigarettes. The dataset being utilized comes from The National Survey on Drug Use and Health (NSDUH), which measures the prevalence and correlates of drug use in the United States both quarterly and annually. Furthermore, to investigate potential differences in states that have legalized marijuana from the period prior to legalization and after, through time-series graphs. Another important comparison to make would be between states that have legalized marijuana and those that haven't to better understand any potential changes in substance use due to legalization.
 
 ### Data
-To examine marijuana and other substance use, we used the [National Survey on Drug Use and Health (NSDUH)](https://nsduhweb.rti.org/respweb/homepage.cfm). The NSDUH contains data on various tobacco, alcohol, and other substance use while also containing some basic demographic information such as age and state of residence. The [dataset](https://datafiles.samhsa.gov/study/national-survey-drug-use-and-health-nsduh-2015-nid16893) that was utilized contained data from 1999 to 2015, which unfortunately does not provide a large amount of data for examining Colorado's 2014 legalization of marijuana.
+To examine marijuana and other substance use, we used the [National Survey on Drug Use and Health (NSDUH)](https://nsduhweb.rti.org/respweb/homepage.cfm. The NSDUH contains data on various tobacco, alcohol, and other substance use while also containing some basic demographic information such as age and state of residence. The [dataset](https://datafiles.samhsa.gov/study/national-survey-drug-use-and-health-nsduh-2015-nid16893) that was utilized contained data from 1999 to 2015, which unfortunately does not provide a large amount of data for examining Colorado's 2014 legalization of marijuana.
 
 ### Analysis
 We initially decided to create an interactive shiny graph to allow for examination of state counts of substance use over the past years. By creating a time-series graph for a selected state, a user will be able to visualize the overall trend for a specific substance across the ten year time period. Users can view this across various age groups or for all age groups combined to view potential differences by age and by state. This provided us with the opportunity to assess the estimated count of substance users in states with various policies regarding marijuana and other substances, which can help to inform us as to the true effects of marijuana legalization.
 
 We then decided that we would like to implement an easy way to compare the amount of substance users within states to other states. In order to do this, we created a proportion measure for users to total population to ensure an appropriate comparison. Then, we created a clustered bar chart displaying the relationship between year and proportion of substance user for two selected states. This allows quick between state comparisons, which can help us to understand how marijuana legalization has effected other substance use.
+
+
+### Timeline of when recreational marijuana was legalized by vote
+```{r, echo=FALSE}
+library(timevis)
+
+# Election date that it was legalized for recreational use
+mjlegal <- data.frame(
+  id      = 1:4,
+  content = c("Colorado", "Washington",
+              "Oregon", "Nevada"),
+  start   = c("2012-11-06", "2012-11-06",
+              "2014-11-04", "2016-11-08"),
+  end     = c(NA, NA, NA, NA)
+)
+
+timevis(mjlegal)
+```
 
