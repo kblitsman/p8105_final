@@ -1,0 +1,13 @@
+name: p8105_final_shiny
+title: p8105_final_shiny
+username:
+account: kblitsman
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 245954
+bundleId: 1121679
+url: https://kblitsman.shinyapps.io/p8105_final_shiny/
+when: 1512674369.25052
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Rplots.pdf
