@@ -87,7 +87,7 @@ renderPlotly({
     filter(outname == input$outcome_choice,
            agegrp == input$age_group,
            stname == input$first_state) %>% 
-    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "lines+markers", hoverinfo = 'text', text = ~paste("Years:", pyearnm, '<br>', "Total count:", est_total),
+    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "lines+markers", hoverinfo = 'text', text = ~paste("Year:", pyearnm, '<br>', "Total count:", est_total),
           marker = list(size = 10,
                        color = 'rgba(255, 182, 193, .9)',
                        line = list(color = 'rgba(152, 0, 0, .8)',
@@ -111,7 +111,7 @@ renderPlotly({
   levels(saes$pyearnm) = gsub("-", "\n", levels(saes$pyearnm))
 p = saes %>%
   filter(stname %in% c(input$first_state, input$second_state), agegrp == input$age_group, outname == input$outcome_choice) %>%
-  ggplot(aes(x = pyearnm, y = est_total*1000/pop*100, fill = stname)) +
+  ggplot(aes(x = pyearnm, y = est_total*1000/pop*100, fill = stname, text = paste('State:', stname, '</br></br>Year:', substring(pyearnm,1,4), '</br>Proportion Users:', round(est_total*1000/pop*100,2), "%"))) +
   geom_bar(colour = "black", position = position_dodge(width = 0.6), stat = "identity") + labs(
     title = "Comparing Monthly Substance Users Between States",
     x = "Years",
@@ -123,7 +123,7 @@ p = saes %>%
   scale_y_continuous(limits = c(0, 100) ,breaks=seq(0, 100, 5));
 
 # Attempt to make hovertext informative. Plotly doe snot handle hovertext well when creating the graph from ggplot
-ggplotly(p, tooltip = c('fill', 'x', 'y'))
+ggplotly(p, tooltip = c('text'))
 })
 
 ```
