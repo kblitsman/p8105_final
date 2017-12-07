@@ -5,9 +5,8 @@ account: kblitsman
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 245954
-bundleId: 1121679
+bundleId: 1121790
 url: https://kblitsman.shinyapps.io/p8105_final_shiny/
-when: 1512674369.25052
+when: 1512677608.90475
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: Rplots.pdf

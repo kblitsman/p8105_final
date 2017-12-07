@@ -120,9 +120,9 @@ p = saes %>%
   ) + 
   theme_bw() +
   theme(axis.title.x = element_blank()) +
-  scale_y_continuous(limits = c(0, 100) ,breaks=seq(0, 100, 5));
+  scale_y_continuous(limits = c(0, 100) ,breaks = seq(0, 100, 5));
 
-# Attempt to make hovertext informative. Plotly doe snot handle hovertext well when creating the graph from ggplot
+# Attempt to make hovertext informative. Plotly does not handle hovertext well when creating the graph from ggplot
 ggplotly(p, tooltip = c('text'))
 })
 
