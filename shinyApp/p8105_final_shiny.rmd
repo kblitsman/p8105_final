@@ -110,7 +110,9 @@ renderPlotly({
 renderPlotly({
   levels(saes$pyearnm) = gsub("-", "\n", levels(saes$pyearnm))
 p = saes %>%
-  filter(stname %in% c(input$first_state, input$second_state), agegrp == input$age_group, outname == input$outcome_choice) %>%
+  filter(stname %in% c(input$first_state, input$second_state), 
+         agegrp == input$age_group, 
+         outname == input$outcome_choice) %>%
   ggplot(aes(x = pyearnm, y = est_total*1000/pop*100, fill = stname, text = paste('State:', stname, '</br></br>Year:', substring(pyearnm,1,4), '</br>Proportion Users:', round(est_total*1000/pop*100,2), "%"))) +
   geom_bar(colour = "black", position = position_dodge(width = 0.6), stat = "identity") + labs(
     title = "Comparing Monthly Substance Users Between States",
@@ -138,7 +140,9 @@ ggplotly(p, tooltip = c('text'))
 # Plotting estimated count of users against population total using plotly
 renderPlotly({
 saes %>%
-  filter(agegrp == input$age_group, outname == input$outcome_choice, pyearnm == input$year_range) %>%
+  filter(agegrp == input$age_group, 
+         outname == input$outcome_choice, 
+         pyearnm == input$year_range) %>%
   plot_ly(
   x = ~pop, y = ~est_total*1000,
   # Hover text:

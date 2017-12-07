@@ -14,7 +14,7 @@ We then decided that we would like to implement an easy way to compare the amoun
 
 
 ### Timeline of when recreational marijuana was legalized by vote
-```{r, echo=FALSE}
+```{r timeline, echo=FALSE}
 library(timevis)
 
 # Election date that it was legalized for recreational use
@@ -30,3 +30,93 @@ mjlegal <- data.frame(
 timevis(mjlegal)
 ```
 
+### Some Sample Plots
+``` {r plots, echo = FALSE, message = FALSE}
+library(tidyverse)
+library(haven)
+library(ggplot2)
+library(plotly)
+
+saes = read_sas("./state_saes_final.sas7bdat") %>%
+  janitor::clean_names() %>% 
+  filter(pyear > 4 & pyear != 12 & area == 2) %>% 
+  select(outname, pyearnm, area, stname, pyear, agegrp, est_total, nsel, ncomp, pop) %>% 
+  mutate(agegrp = ifelse(agegrp == 0, "All",
+                         ifelse(agegrp == 1, "12 to 17",
+                         ifelse(agegrp == 2, "18 to 25",
+                         ifelse(agegrp == 4, "26 or older", NA))))) %>% 
+  filter(!is.na(agegrp),
+         outname %in% c("alcohol use in the past month", 
+                        "binge alcohol use in the past month",
+                      "illicit drug use other than marijuana in the past month",
+                      "cigarette use in the past month",
+                      "tobacco use in the past month",
+                      "marijuana use in the past month"
+                      )) 
+saes$pyearnm = as.factor(saes$pyearnm)
+
+#Time-series graph: MJ use in Colorado among 12-17 yr olds
+saes %>% 
+    filter(outname == "marijuana use in the past month",
+           agegrp == "12 to 17",
+           stname == "Colorado") %>% 
+    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "lines+markers", hoverinfo = 'text', text = ~paste("Year:", pyearnm, '<br>', "Total count:", est_total),
+          marker = list(size = 10,
+                       color = 'rgba(255, 182, 193, .9)',
+                       line = list(color = 'rgba(152, 0, 0, .8)',
+                                   width = 2))) %>%
+  layout(title = "Marijuana use in the past month among 12 - 17 year olds, Colorado",
+         yaxis = list(zeroline = TRUE, title = "Estimated Total Number of Users (in thousands)"),
+         xaxis = list(zeroline = TRUE, title = "Year Range"),
+         margin = list(b = 100), xaxis = list(tickprefix = " "))
+
+#Time-Series graph: tobacco use in Colorado among 12-17 yr olds
+saes %>% 
+    filter(outname == "tobacco use in the past month",
+           agegrp == "12 to 17",
+           stname == "Colorado") %>% 
+    plot_ly(x = ~pyearnm, y = ~est_total, type = "scatter", mode = "lines+markers", hoverinfo = 'text', text = ~paste("Year:", pyearnm, '<br>', "Total count:", est_total),
+          marker = list(size = 10,
+                       color = 'rgba(255, 182, 193, .9)',
+                       line = list(color = 'rgba(152, 0, 0, .8)',
+                                   width = 2))) %>%
+  layout(title = "Tobacco use in the past month among 12 - 17 year olds, Colorado",
+         yaxis = list(zeroline = TRUE, title = "Estimated Total Number of Users (in thousands)"),
+         xaxis = list(zeroline = TRUE, title = "Year Range"),
+         margin = list(b = 100), xaxis = list(tickprefix = " "))
+
+#Comparison graph: Colorado vs. Alabama, MJ use in past month, 18-25 yr olds
+  p = saes %>%
+    filter(stname %in% c("Colorado", "Alabama"), 
+           agegrp == "18 to 25", 
+           outname == "marijuana use in the past month") %>%
+    ggplot(aes(x = pyearnm, y = est_total*1000/pop*100, fill = stname, text = paste('State:', stname, '</br></br>Year:', substring(pyearnm,1,4), '</br>Proportion Users:', round(est_total*1000/pop*100,2), "%"))) +
+    geom_bar(colour = "black", position = position_dodge(width = 0.6), stat = "identity") + labs(
+      title = "Comparing Monthly Substance Users Between States, ages 18 to 25",
+      x = "Years",
+      y = "Proportion Users to Population (%)",
+      fill = "States Compared:"
+    ) + 
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, vjust = 0.5)) + 
+        scale_y_continuous(limits = c(0, 100) ,breaks = seq(0, 100, 5));
+  
+  # Attempt to make hovertext informative. Plotly does not handle hovertext well when creating the graph from ggplot
+  ggplotly(p, tooltip = c('text'))
+
+#Scatter graph: tobacco use in Colorado among 12-17 yr olds  
+saes %>%
+  filter(agegrp == "All", 
+         outname == "marijuana use in the past month", 
+         pyearnm == "2014-2015") %>%
+  plot_ly(
+  x = ~pop, y = ~est_total*1000,
+  # Hover text:
+  hoverinfo = 'text',
+  text = ~paste("State:", stname, '<br>Total Users:', est_total*1000, '<br>Population:', pop),
+  color = ~est_total, size = ~est_total) %>%
+  layout(title = "Scatterplot Comparing MJ Users Against Total Population, 2014-2015",
+         yaxis = list(title = "Estimated User Total"),
+         xaxis = list(title = "Population Total "),
+         margin = list(b = 100), xaxis = list(tickprefix = " "))
+```
