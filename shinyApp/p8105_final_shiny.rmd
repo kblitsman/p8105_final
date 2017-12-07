@@ -111,15 +111,16 @@ renderPlotly({
   levels(saes$pyearnm) = gsub("-", "\n", levels(saes$pyearnm))
 p = saes %>%
   filter(stname %in% c(input$first_state, input$second_state), agegrp == input$age_group, outname == input$outcome_choice) %>%
-  ggplot(aes(x = pyearnm, fill = stname)) +
-  geom_bar(aes(group = stname, y = est_total*1000/pop*100), position = position_dodge(width = 0.6), stat = "identity") + labs(
+  ggplot(aes(x = pyearnm, y = est_total*1000/pop*100, fill = stname)) +
+  geom_bar(colour = "black", position = position_dodge(width = 0.6), stat = "identity") + labs(
     title = "Comparing Monthly Substance Users Between States",
     x = "Years",
     y = "Proportion Users to Population (%)",
     fill = "States Compared:"
   ) + 
   theme_bw() +
-  theme(axis.title.x = element_blank());
+  theme(axis.title.x = element_blank()) +
+  scale_y_continuous(limits = c(0, 100) ,breaks=seq(0, 100, 5));
 
 # Attempt to make hovertext informative. Plotly doe snot handle hovertext well when creating the graph from ggplot
 ggplotly(p, tooltip = c('fill', 'x', 'y'))
