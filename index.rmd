@@ -7,6 +7,10 @@ title: "Investigating the Effect of Marijuana Legalization"
 ### Project Purpose
 The premise of this project is to look at how the legalization of marijuana has affected the use of other substances, such as illicit drugs, alcohol and cigarettes. The dataset being utilized comes from The National Survey on Drug Use and Health (NSDUH), which measures the prevalence and correlates of drug use in the United States both quarterly and annually. Furthermore, to investigate potential differences in states that have legalized marijuana from the period prior to legalization and after, through time-series graphs. Another important comparison to make would be between states that have legalized marijuana and those that haven't to better understand any potential changes in substance use due to legalization.
 
+A short synopsis and how to navigate our project is included below. For more details on the making of this project, please visit our [project repository on Github](https://github.com/kblitsman/p8105_final)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/H3WLtdV1bXY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
 <br>
 
 ### Data
