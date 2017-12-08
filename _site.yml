@@ -5,6 +5,10 @@ navbar:
   right:
     - text: "Project Repository"
       href: https://github.com/kblitsman/p8105_final
+    - text: "Interactive Analysis"
+      href: https://kblitsman.shinyapps.io/p8105_final_shiny/
+    - text: "Results"
+      href: results.html
     - text: "About Katie"
       href: https://kblitsman.github.io/
     - text: "About Corey"
