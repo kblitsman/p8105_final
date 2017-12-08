@@ -48,7 +48,7 @@ saes %>%
 ```
 
 <br>
-Unfortunately, it appeared that alcohol and illicit substance use was relatively unaffected in the years immediately following legalization. Legalization did not seem to affect the amount of people involving themselves with alcohol or illicit substances. Only cigarette use, visualized in the graph below, seemed to follow a downward trend that mirrored Marijuana's upward trend. While it would be fantastic to be able to suggest the two are related, most other states share a similar trend of decreasing cigarette use.
+Unfortunately, it appeared that alcohol and illicit substance use was relatively unaffected in the years immediately following legalization. Legalization did not seem to affect the number of people involving themselves with alcohol or illicit substances. Only cigarette use, visualized in the graph below, seemed to follow a downward trend that mirrored Marijuana's upward trend. While it would be fantastic to be able to suggest the two are related, most other states share a similar trend of decreasing cigarette use.
 
 ``` {r plots, echo = FALSE, message = FALSE}
 #Time-Series graph: tobacco use in Colorado among 12-17 yr olds
@@ -99,11 +99,11 @@ levels(saes$pyearnm) = gsub("-", "\n \n", levels(saes$pyearnm))
 levels(saes$pyearnm) = gsub("\n \n", "-", levels(saes$pyearnm))
 ```
 
-<br><br>
+<br>
 Finally, to generate a broad visual of marijuana users compared to the general population, we generated a scatter plot plotting the two for selected years and age groups. In our selected example, we look at marijuana use for 12-17 year olds in 2014-2015 for all 50 states. There are a couple interesting points to consider when looking at this plot:
 
 * It does not appear that total population correlates perfectly with users, as Texas has a greater population than New York with less marijuana users
-* Most of the states that would vote to legalize marijuana in the future (Massachusets, Oregon, California) are over what appears to be the trendline for states
+* Most of the states that would vote to legalize marijuana in the future (Massachusetts, Oregon, California) are over what appears to be the trend line for states.
 
 ```{r Scatterplot, echo = FALSE, message = FALSE}
 #Scatter graph: tobacco use in Colorado among 12-17 yr olds  

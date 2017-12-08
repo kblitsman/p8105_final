@@ -185,13 +185,13 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/kblitsman/p8105_final">Project Repository</a>
-</li>
-<li>
   <a href="https://kblitsman.shinyapps.io/p8105_final_shiny/">Interactive Analysis</a>
 </li>
 <li>
   <a href="results.html">Results</a>
+</li>
+<li>
+  <a href="https://github.com/kblitsman/p8105_final">Project Repository</a>
 </li>
 <li>
   <a href="https://kblitsman.github.io/">About Katie</a>
@@ -240,29 +240,34 @@ $(document).ready(function () {
 </div>
 
 
+<p><br></p>
 <div id="project-purpose" class="section level3">
 <h3>Project Purpose</h3>
 <p>The premise of this project is to look at how the legalization of marijuana has affected the use of other substances, such as illicit drugs, alcohol and cigarettes. The dataset being utilized comes from The National Survey on Drug Use and Health (NSDUH), which measures the prevalence and correlates of drug use in the United States both quarterly and annually. Furthermore, to investigate potential differences in states that have legalized marijuana from the period prior to legalization and after, through time-series graphs. Another important comparison to make would be between states that have legalized marijuana and those that haven’t to better understand any potential changes in substance use due to legalization.</p>
+<p><br></p>
 </div>
 <div id="data" class="section level3">
 <h3>Data</h3>
-<p>To examine marijuana and other substance use, we used the <a href="https://nsduhweb.rti.org/respweb/homepage.cfm">National Survey on Drug Use and Health (NSDUH)</a>. The NSDUH contains data on various tobacco, alcohol, and other substance use while also containing some basic demographic information such as age and state of residence. The <a href="https://datafiles.samhsa.gov/study/national-survey-drug-use-and-health-nsduh-2015-nid16893">dataset</a> that was utilized contained data from 1999 to 2015, which unfortunately does not provide a large amount of data for examining Colorado’s 2012 legalization of marijuana.</p>
+<p>To examine marijuana and other substance use, we used the <a href="https://nsduhweb.rti.org/respweb/homepage.cfm">National Survey on Drug Use and Health (NSDUH)</a>. The NSDUH contains data on various tobacco, alcohol, and other substance use while also containing some basic demographic information such as age and state of residence. The <a href="https://datafiles.samhsa.gov/study/national-survey-drug-use-and-health-nsduh-2015-nid16893">dataset</a> that was utilized contained data from 1999 to 2015, which unfortunately does not provide a large amount of data for examining Washington and Colorado’s 2012 legalization of marijuana for recreational use. Additional states have also approved the use of recreational marijuana, bringing the total number to eight, while there are 29 states and DC that have approved of medical marijuana use.</p>
+<p><br></p>
 </div>
 <div id="analysis" class="section level3">
 <h3>Analysis</h3>
 <p>We initially decided to create an interactive shiny graph to allow for examination of state counts of substance use over the past years. By creating a time-series graph for a selected state, a user will be able to visualize the overall trend for a specific substance across the ten year time period. Users can view this across various age groups or for all age groups combined to view potential differences by age and by state. This provided us with the opportunity to assess the estimated count of substance users in states with various policies regarding marijuana and other substances, which can help to inform us as to the true effects of marijuana legalization.</p>
-<p>We then decided that we would like to implement an easy way to compare the amount of substance users within states to other states. In order to do this, we created a proportion measure for users to total population to ensure an appropriate comparison. Then, we created a clustered bar chart displaying the relationship between year and proportion of substance user for two selected states. This allows quick between state comparisons, which can help us to understand how marijuana legalization has effected other substance use.</p>
-<p>You can interact with our graphs and compare the rates of substance use <a href="https://kblitsman.shinyapps.io/p8105_final_shiny/">here</a>, while our investigation and conclusions regarding the data can be found <a href="results.html">here</a>.</p>
+<p><br> We then decided that we would like to implement an easy way to compare the amount of substance users within states to other states. In order to do this, we created a proportion measure for users to total population to ensure an appropriate comparison. Then, we created a clustered bar chart displaying the relationship between year and proportion of substance user for two selected states. This allows quick between state comparisons, which can help us to understand how marijuana legalization has effected other substance use.</p>
+<p><br> You can interact with our graphs and compare the rates of substance use <a href="https://kblitsman.shinyapps.io/p8105_final_shiny/">here</a>, while our investigation and conclusions regarding the data can be found <a href="results.html">here</a>.</p>
+<p><br></p>
 </div>
-<div id="timeline-of-when-recreational-marijuana-was-legalized-by-vote" class="section level3">
-<h3>Timeline of when recreational marijuana was legalized by vote</h3>
-<div id="htmlwidget-597da7373b72812cb661" class="timevis html-widget" style="width:672px;height:480px;">
+<div id="timeline-of-when-marijuana-use-was-approved-by-voters" class="section level3">
+<h3>Timeline of when marijuana use was approved by voters</h3>
+<p>The timeline below allows you to scroll through and see what states have approved recreational or medical marijuana use.<br />
+<div id="htmlwidget-9e37e855c57582e597b9" class="timevis html-widget" style="width:672px;height:480px;">
 <div class="btn-group zoom-menu">
 <button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
 <button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-597da7373b72812cb661">{"x":{"items":[{"id":"1","content":"Colorado","start":"2012-11-06"},{"id":"2","content":"Washington","start":"2012-11-06"},{"id":"3","content":"Oregon","start":"2014-11-04"},{"id":"4","content":"Alaska","start":"2014-11-04"},{"id":"5","content":"Nevada","start":"2016-11-08"},{"id":"6","content":"California","start":"2016-11-08"},{"id":"7","content":"Maine","start":"2016-11-08"},{"id":"8","content":"Massachusetts","start":"2016-11-08"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[]},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9e37e855c57582e597b9">{"x":{"items":[{"start":"2012-11-06","content":"Colorado","group":"1"},{"start":"2012-11-06","content":"Washington","group":"1"},{"start":"2014-11-04","content":"Oregon","group":"1"},{"start":"2014-11-04","content":"Alaska","group":"1"},{"start":"2016-11-08","content":"Nevada","group":"1"},{"start":"2016-11-08","content":"California","group":"1"},{"start":"2016-11-08","content":"Maine","group":"1"},{"start":"2016-11-08","content":"Massachusetts","group":"1"},{"start":"1996-11-05","content":"California","group":"2"},{"start":"1998-11-03","content":"Alaska","group":"2"},{"start":"1998-11-03","content":"Oregon","group":"2"},{"start":"1998-11-03","content":"Washington","group":"2"},{"start":"1999-11-02","content":"Maine","group":"2"},{"start":"2000-11-07","content":"Colorado","group":"2"},{"start":"2000-11-07","content":"Hawaii","group":"2"},{"start":"2000-11-07","content":"Nevada","group":"2"},{"start":"2004-11-02","content":"Montana","group":"2"},{"start":"2004-11-02","content":"Vermont","group":"2"},{"start":"2006-11-07","content":"Rhode Island","group":"2"},{"start":"2007-11-06","content":"New Mexico","group":"2"},{"start":"2008-11-04","content":"Michigan","group":"2"},{"start":"2010-11-02","content":"Arizona","group":"2"},{"start":"2010-11-02","content":"D.C.","group":"2"},{"start":"2010-11-02","content":"New Jersey","group":"2"},{"start":"2011-11-08","content":"Deleware","group":"2"},{"start":"2012-11-06","content":"Connecticut","group":"2"},{"start":"2012-11-06","content":"Massachusettes","group":"2"},{"start":"2013-11-05","content":"Illinois","group":"2"},{"start":"2013-11-05","content":"New Hampshire","group":"2"},{"start":"2014-11-04","content":"Maryland","group":"2"},{"start":"2014-11-04","content":"Minnesota","group":"2"},{"start":"2014-11-04","content":"New York","group":"2"},{"start":"2015-11-03","content":"Louisiana","group":"2"},{"start":"2016-11-08","content":"Ohio","group":"2"},{"start":"2016-11-08","content":"Pennsylvania","group":"2"},{"start":"2016-11-08","content":"Florida","group":"2"},{"start":"2016-11-08","content":"North Dakota","group":"2"},{"start":"2016-11-08","content":"Arkansas","group":"2"}],"groups":[{"id":"1","content":"Recreational"},{"id":"2","content":"Medical"}],"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"api":[{"method":"setGroups","data":[{"id":"1","content":"Recreational"},{"id":"2","content":"Medical"}]}]},"evals":[],"jsHooks":[]}</script></p>
 </div>
 
 
